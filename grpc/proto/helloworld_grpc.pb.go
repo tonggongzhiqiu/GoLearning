@@ -22,7 +22,7 @@ const (
 	Hello_SayHello_FullMethodName = "/proto.Hello/SayHello"
 )
 
-// HelloClient is the client API for Hello service.
+// HelloClient is the client.go API for Hello service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type HelloClient interface {

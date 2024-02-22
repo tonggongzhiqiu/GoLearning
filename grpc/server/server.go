@@ -1,22 +1,20 @@
 package main
 
 import (
+	proto "GoLearning/grpc/proto"
 	"context"
-	proto "github.com/tonggongzhiqiu/GoLearning/grpc/proto"
 	"google.golang.org/grpc"
 	"log"
 	"net"
 )
 
 type HelloService struct {
+	proto.UnimplementedHelloServer
 }
 
 func (s *HelloService) SayHello(ctx context.Context, req *proto.HelloRequest) (*proto.HelloResp, error) {
 	log.Println(req.Name)
-	return &proto.HelloResp{Message: "hello, i am wufu"}, nil
-}
-func (s *HelloService) mustEmbedUnimplementedHelloServer() {
-
+	return &proto.HelloResp{Message: "hello, i am " + req.GetName()}, nil
 }
 
 const (
@@ -26,6 +24,7 @@ const (
 
 func main() {
 	listener, err := net.Listen(Network, Address)
+	log.Println("start listen...")
 
 	if err != nil {
 		log.Panic("net.Listen err! err=%v", err)
@@ -33,7 +32,7 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 	proto.RegisterHelloServer(grpcServer, &HelloService{})
-
+	log.Println("register helloServer success")
 	err = grpcServer.Serve(listener)
 	if err != nil {
 		log.Panic("grpcServer.Serve err! err=%v", err)
