@@ -1,8 +1,8 @@
-package server
+package main
 
 import (
-	proto "GoLearning/grpc/proto"
 	"context"
+	proto "github.com/tonggongzhiqiu/GoLearning/grpc/proto"
 	"google.golang.org/grpc"
 	"log"
 	"net"
